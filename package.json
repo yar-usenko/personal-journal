@@ -1,0 +1,117 @@
+{
+  "name": "personal-journal",
+  "private": true,
+  "description": "// TODO: write description",
+  "license": "MIT",
+  "repository": "github:yarus-app/zenkit",
+  "author": "Yaroslav Usenko <usenko.jaroslav@gmail.com> (https://usenko.pp.ua)",
+  "homepage": "https://github.com/yarus-app/zenkit",
+  "bugs": "https://github.com/yarus-app/zenkit/issues",
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "postinstall": "npm run bootstrap",
+    "clean:pkgs": "lerna run clean && lerna exec \"rimraf bin build dist lib public\"",
+    "clean:lerna": "lerna clean --yes",
+    "clean": "run-s clean:**",
+    "develop": "cross-env NODE_ENV=development lerna run develop",
+    "build": "cross-env NODE_ENV=production lerna run build",
+    "lint": "eslint . --ext .js,.jsx,.mjs --ignore-path .gitignore",
+    "format:files": "prettier **/* --write --ignore-unknown --ignore-path .gitignore",
+    "format:code": "npm run lint -- --fix",
+    "format": "run-s format:**"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@commitlint/config-lerna-scopes": "^11.0.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.16.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.0",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-unicorn": "^24.0.0",
+    "husky": "^4.3.6",
+    "imagemin-lint-staged": "^0.4.0",
+    "lerna": "^3.22.1",
+    "lint-staged": "^10.5.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "airbnb",
+      "airbnb/hooks",
+      "airbnb/whitespace",
+      "plugin:prettier/recommended",
+      "plugin:unicorn/recommended",
+      "prettier",
+      "prettier/babel",
+      "prettier/react",
+      "prettier/unicorn"
+    ],
+    "plugins": [
+      "prettier",
+      "unicorn"
+    ],
+    "parserOptions": {
+      "sourceType": "module"
+    },
+    "env": {
+      "es6": true,
+      "browser": true,
+      "node": true
+    },
+    "rules": {
+      "react/prop-types": 0,
+      "unicorn/prevent-abbreviations": 0,
+      "import/no-unresolved": 0
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional",
+      "@commitlint/config-lerna-scopes"
+    ],
+    "rules": {
+      "type-enum": [
+        2,
+        "always",
+        [
+          "build",
+          "chore",
+          "ci",
+          "docs",
+          "feat",
+          "fix",
+          "perf",
+          "refactor",
+          "revert",
+          "style",
+          "test"
+        ]
+      ]
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,mjs}": [
+      "eslint --fix"
+    ],
+    "*.{png,jpeg,jpg,gif,svg}": [
+      "imagemin-lint-staged"
+    ],
+    "*.{md,mdx,json}": [
+      "prettier --write --ignore-unknown"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}

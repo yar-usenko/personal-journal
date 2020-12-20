@@ -1,0 +1,8 @@
+{
+  "packages": ["api-endpoint", "frontend"],
+  "stream": true,
+  "parallel": true,
+  "hoist": true,
+  "ignoreChanges": ["**/fixtures/**", "**/test/**", "**/*.md"],
+  "version": "0.0.0"
+}
